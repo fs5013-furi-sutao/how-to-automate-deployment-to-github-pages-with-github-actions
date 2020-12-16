@@ -48,6 +48,25 @@ jobs:
 
 コミットが確認出来たら、`git pull` で workflow ファイルをプルする。
 
+### package.json の script を変更
+
+gh-pages.yml では、コマンド「yarn build」を使っているので、`https://username.github.io/project_name/` が利用できるように "build" スクリプトを "gatsby build --prefix-paths" に変更しておく。
+
+``` json 
+{
+  // ・・・
+  "scripts": {
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "build": "gatsby build --prefix-paths",
+    "start": "gatsby develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  }
+}
+```
+
+### 動作確認
+
 この状態になれば、自動デプロイ環境は整っている。
 
 試しに、ローカルを変更し、コミット、プッシュを行う。main ブランチへのプッシュをトリガに GitHub Actions が起動する。
